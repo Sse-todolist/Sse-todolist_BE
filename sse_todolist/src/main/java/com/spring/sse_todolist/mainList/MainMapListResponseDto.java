@@ -2,10 +2,11 @@ package com.spring.sse_todolist.mainList;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@Getter @NoArgsConstructor
+@Getter @NoArgsConstructor @Setter
 public class MainMapListResponseDto {
 
 

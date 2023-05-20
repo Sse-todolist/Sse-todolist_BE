@@ -1,10 +1,11 @@
 package com.spring.sse_todolist.mainList;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity @Getter
+@Entity @Getter @NoArgsConstructor
 @Table(name = "mainlist")
 public class MainList {
 
@@ -21,5 +22,12 @@ public class MainList {
 
     @Column(nullable = false)
     private String checkYn;
+
+
+    public MainList(String title , String delYn , String checkYn){
+        this.title = title;
+        this.delYn = delYn;
+        this.checkYn = checkYn;
+    }
 
 }

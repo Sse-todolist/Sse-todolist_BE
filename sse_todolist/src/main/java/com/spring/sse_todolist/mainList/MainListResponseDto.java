@@ -1,5 +1,9 @@
 package com.spring.sse_todolist.mainList;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter @NoArgsConstructor
 public class MainListResponseDto {
 
     private Long id;
