@@ -13,6 +13,8 @@ public class MainListService {
 
     private final MainListRepository mainListRepository;
 
+
+    // 조건 없이 전체 조회
     public MainMapListResponseDto getAllList() {
         List<MainList> mainLists = mainListRepository.findAll();
         List<MainListResponseDto> result = mainLists.stream()
@@ -22,6 +24,7 @@ public class MainListService {
         return new MainMapListResponseDto(result);
     }
 
+    // 리스트 내용 등록
     @Transactional
     public void insMainList(MainListRequestDto mainListRequestDto){
         String title = mainListRequestDto.getTitle();
@@ -39,6 +42,7 @@ public class MainListService {
 
     }
 
+    //리스트 내용 수정
     @Transactional
     public void setMainList(Long mainListId , MainListRequestDto mainListRequestDto){
         String title = mainListRequestDto.getTitle();
@@ -48,7 +52,21 @@ public class MainListService {
         mainList.updateMainList(mainListRequestDto.getTitle());
     }
 
+    // 휴지통으로 이동
+    @Transactional
+    public void setTrashCanMainList(Long mainListId){
+        MainList mainList = mainListRepository.findById(mainListId).orElseThrow(NoSuchElementException::new);
 
-    
+        mainListRepository.insertTrashCan(mainListId);
+    }
+
+    // 휴지통에서 복구
+    @Transactional
+    public void setRecycleMainList(Long mainListId){
+        MainList mainList = mainListRepository.findById(mainListId).orElseThrow(NoSuchElementException::new);
+
+        mainListRepository.recycleTrashCan(mainListId);
+    }
+
 
 }
