@@ -30,4 +30,8 @@ public class MainList {
         this.checkYn = checkYn;
     }
 
+    public void updateMainList(String title){
+        this.title = title;
+    }
+
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor
@@ -36,8 +37,18 @@ public class MainListService {
         MainList mainList = new MainList(title, delYn, checkYn);
         mainListRepository.save(mainList);
 
-
     }
 
+    @Transactional
+    public void setMainList(Long mainListId , MainListRequestDto mainListRequestDto){
+        String title = mainListRequestDto.getTitle();
+
+        MainList mainList = mainListRepository.findById(mainListId).orElseThrow(NoSuchElementException::new);
+
+        mainList.updateMainList(mainListRequestDto.getTitle());
+    }
+
+
+    
 
 }
