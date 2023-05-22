@@ -10,10 +10,24 @@ public class mainListController {
     private final MainListService mainListService;
 
     // 조건 없이 전체 조회
-    @GetMapping("/api/mainList")
-    public MainMapListResponseDto getList(){
+    @GetMapping("/api/mainListAll")
+    public MainMapListResponseDto getListAll(){
         return mainListService.getAllList();
     }
+
+    // 메인 리스트 조회
+    @GetMapping("/api/mainList")
+    public MainMapListResponseDto getList(){
+        return mainListService.getList();
+    }
+
+
+    // 휴지통 조회
+    @GetMapping("/api/trashCanList")
+    public MainMapListResponseDto getTrashCanList(){
+        return mainListService.getTrashCanList();
+    }
+
 
     // 리스트 등록
     @PostMapping("/api/insMainList")
@@ -42,5 +56,7 @@ public class mainListController {
         mainListService.setRecycleMainList(mainListId);
         return "휴지통으로 이동되었습니다.";
     }
+
+
 
 }

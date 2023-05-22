@@ -24,6 +24,27 @@ public class MainListService {
         return new MainMapListResponseDto(result);
     }
 
+    // 리스트 조회
+    public MainMapListResponseDto getList() {
+        List<MainList> mainLists = mainListRepository.findList();
+        List<MainListResponseDto> result = mainLists.stream()
+                .map(MainListResponseDto::new)
+                .collect(Collectors.toList());
+
+        return new MainMapListResponseDto(result);
+    }
+
+
+    // 휴지통 조회
+    public MainMapListResponseDto getTrashCanList() {
+        List<MainList> TrashCanLists = mainListRepository.findTrashCanList();
+        List<MainListResponseDto> result = TrashCanLists.stream()
+                .map(MainListResponseDto::new)
+                .collect(Collectors.toList());
+
+        return new MainMapListResponseDto(result);
+    }
+
     // 리스트 내용 등록
     @Transactional
     public void insMainList(MainListRequestDto mainListRequestDto){

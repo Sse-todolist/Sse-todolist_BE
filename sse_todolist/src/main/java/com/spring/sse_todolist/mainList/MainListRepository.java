@@ -9,8 +9,19 @@ import java.util.List;
 
 public interface MainListRepository extends JpaRepository<MainList , Long> {
 
+    // 리스트 조건없이 조회
     List<MainList> findAll();
 
+
+    // 리스트 조회
+    @Modifying
+    @Query("SELECT mainList.id ,mainList.title , mainList.delYn , mainList.checkYn FROM MainList mainList WHERE mainList.delYn = 'N'")
+    List<MainList> findList();
+
+    // 휴지통 조회
+    @Modifying
+    @Query("SELECT mainList.id ,mainList.title , mainList.delYn , mainList.checkYn FROM MainList mainList WHERE mainList.delYn = 'Y'")
+    List<MainList> findTrashCanList();
 
     // 휴지통으로 이동
     @Modifying
