@@ -26,7 +26,7 @@ public class MainListService {
 
     // 리스트 조회
     public MainMapListResponseDto getList() {
-        List<MainList> mainLists = mainListRepository.findList();
+        List<MainList> mainLists = mainListRepository.findMainListsByDelYn("N");
         List<MainListResponseDto> result = mainLists.stream()
                 .map(MainListResponseDto::new)
                 .collect(Collectors.toList());
@@ -37,7 +37,7 @@ public class MainListService {
 
     // 휴지통 조회
     public MainMapListResponseDto getTrashCanList() {
-        List<MainList> TrashCanLists = mainListRepository.findTrashCanList();
+        List<MainList> TrashCanLists = mainListRepository.findMainListsByDelYn("Y");
         List<MainListResponseDto> result = TrashCanLists.stream()
                 .map(MainListResponseDto::new)
                 .collect(Collectors.toList());
@@ -88,6 +88,30 @@ public class MainListService {
 
         mainListRepository.recycleTrashCan(mainListId);
     }
+
+    // 리스트 체크 클릭시 checkYn 변경
+    @Transactional
+    public void setUpdateCheckYn(Long mainListId){
+        MainList mainList = mainListRepository.findById(mainListId).orElseThrow(NoSuchElementException::new);
+
+        // checkYn이 Y일경우
+        if(mainList.getCheckYn().equals("Y") ) {
+            // N 로 바꿔준다.
+            mainListRepository.setCheckN(mainListId);
+        // checkYn이 N일경우
+        } else if (mainList.getCheckYn().equals("N")){
+            // Y 로 바꿔준다.
+            mainListRepository.setCheckY(mainListId);
+        }
+    }
+
+    // delete 삭제
+    public void delMainList(Long mainListId){
+        MainList mainList = mainListRepository.findById(mainListId).orElseThrow(NoSuchElementException::new);
+
+        mainListRepository.deleteById(mainListId);
+    }
+
 
 
 }
