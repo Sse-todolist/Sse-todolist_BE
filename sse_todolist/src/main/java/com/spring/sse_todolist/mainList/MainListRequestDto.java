@@ -1,10 +1,11 @@
 package com.spring.sse_todolist.mainList;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Getter @NoArgsConstructor
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor @ToString
 public class MainListRequestDto {
     private Long id;
     private String title;

@@ -1,6 +1,8 @@
 package com.spring.sse_todolist.mainList;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -18,6 +20,7 @@ public class MainListController {
     // 메인 리스트 조회
     @GetMapping("/api/mainList")
     public MainMapListResponseDto getList(){
+        System.out.println("여기는옴???????????????????????????????????????????????????????");
         return mainListService.getList();
     }
 
@@ -25,50 +28,59 @@ public class MainListController {
     // 휴지통 조회
     @GetMapping("/api/trashCanList")
     public MainMapListResponseDto getTrashCanList(){
+
         return mainListService.getTrashCanList();
     }
 
 
     // 리스트 등록
     @PostMapping("/api/insMainList")
-    public String insertMainList(@RequestBody MainListRequestDto mainListRequestDto) throws InterruptedException {
+    public ResponseEntity<ApiResponseMessage> insertMainList(@RequestBody MainListRequestDto mainListRequestDto) {
+        System.out.println("여기는옴???????????????????????????????????????????????????????");
+        System.out.println("mainListRequestDto = " + mainListRequestDto);
         mainListService.insMainList(mainListRequestDto);
-        return "등록이 완료 되었습니다";
+        ApiResponseMessage message = new ApiResponseMessage("Success", "등록이 완료되었습니다.", "", "");
+        return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.OK);
     }
 
     // 리스트 내용 수정
     @PutMapping("/api/setMainList/{mainListId}")
-    public String updateMainList(@PathVariable Long mainListId , @RequestBody MainListRequestDto mainListRequestDto) throws InterruptedException {
+    public ResponseEntity<ApiResponseMessage> updateMainList(@PathVariable Long mainListId , @RequestBody MainListRequestDto mainListRequestDto) {
         mainListService.setMainList(mainListId, mainListRequestDto);
-        return "수정이 완료 되었습니다";
+        ApiResponseMessage message = new ApiResponseMessage("Success", "수정이 완료되었습니다.", "", "");
+        return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.OK);
     }
 
     // 휴지통으로 이동
     @PutMapping("/api/setTrashCan/{mainListId}")
-    public String setTrashCanMainList(@PathVariable Long mainListId ) throws InterruptedException {
+    public ResponseEntity<ApiResponseMessage> setTrashCanMainList(@PathVariable Long mainListId )  {
         mainListService.setTrashCanMainList(mainListId);
-        return "휴지통으로 이동되었습니다.";
+        ApiResponseMessage message = new ApiResponseMessage("Success", "휴지통으로 이동되었습니다.", "", "");
+        return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.OK);
     }
 
     // 휴지통에서 빼주기
     @PutMapping("/api/setRecycle/{mainListId}")
-    public String setRecycleMainList(@PathVariable Long mainListId ) throws InterruptedException {
+    public ResponseEntity<ApiResponseMessage> setRecycleMainList(@PathVariable Long mainListId ) {
         mainListService.setRecycleMainList(mainListId);
-        return "휴지통으로 이동되었습니다.";
+        ApiResponseMessage message = new ApiResponseMessage("Success", "휴지통에서 제거되었습니다.", "", "");
+        return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.OK);
     }
 
     // 리스트 체크 클릭시 checkYn 변경
     @PutMapping("/api/updateCheckYn/{mainListId}")
-    public String setCheckYn(@PathVariable Long mainListId ) throws InterruptedException {
+    public ResponseEntity<ApiResponseMessage> setCheckYn(@PathVariable Long mainListId ) {
         mainListService.setUpdateCheckYn(mainListId);
-        return "수정이 완료 되었습니다.";
+        ApiResponseMessage message = new ApiResponseMessage("Success", "체크되었습니다.", "", "");
+        return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.OK);
     }
 
     // delete 삭제
     @DeleteMapping("/api/delMainList/{mainListId}")
-    public String delMainList(@PathVariable Long mainListId ) throws InterruptedException {
+    public ResponseEntity<ApiResponseMessage> delMainList(@PathVariable Long mainListId ) {
         mainListService.delMainList(mainListId);
-        return "삭제에 성공하였습니다.";
+        ApiResponseMessage message = new ApiResponseMessage("Success", "삭제가 완료되었습니다.", "", "");
+        return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.OK);
     }
 
 }

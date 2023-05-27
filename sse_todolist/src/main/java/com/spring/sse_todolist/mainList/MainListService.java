@@ -30,7 +30,8 @@ public class MainListService {
         List<MainListResponseDto> result = mainLists.stream()
                 .map(MainListResponseDto::new)
                 .collect(Collectors.toList());
-
+        System.out.println("result = " + result);
+        System.out.println(" GetService 여기는옴 ??????? " );
         return new MainMapListResponseDto(result);
     }
 
@@ -52,6 +53,9 @@ public class MainListService {
         String delYn = mainListRequestDto.getDelYn();
         String checkYn = mainListRequestDto.getCheckYn();
 
+        System.out.println("title = " + title);
+        System.out.println("delYn = " + delYn);
+        System.out.println("checkYn = " + checkYn);
         //        // 회원 ID 중복 확인
         //        Optional<User> found = userRepository.findByUsername(username);
         //        if (found.isPresent()) {
@@ -59,6 +63,8 @@ public class MainListService {
         //        }
 
         MainList mainList = new MainList(title, delYn, checkYn);
+        System.out.println("mainList = " + mainList);
+        
         mainListRepository.save(mainList);
 
     }
